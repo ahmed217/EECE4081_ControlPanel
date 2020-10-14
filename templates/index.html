@@ -14,10 +14,10 @@
  
  <div class="container">
 	<div class="row align-items-center">
-		<div class="col"><input type="text" placeholder="Room"></div>
-		<div class="col"><input type="text" placeholder="Instructor"></div>
-		<div class="col"><input type="text" placeholder="Course"></div>
-		<div class="col"><input type="text" placeholder="Time Slot"></div>
+		<div class="col"><input type="text" placeholder="Room" value="{{room_text}}"></div>
+		<div class="col"><input type="text" placeholder="Instructor" value="{{instruct_text}}"></div>
+		<div class="col"><input type="text" placeholder="Course" value="{{course_text}}"></div>
+		<div class="col"><input type="text" placeholder="Time Slot" value="{{timeslot_text}}"></div>
 		<div class="col"><input type="button" value="Save"></div>
 	</div>
 	  
@@ -30,9 +30,9 @@
   <tbody>
   {% for room in rooms %}
 	<tr>
-		<td>{{ room }}</td>
+		<td>{{ room[1] }}</td>
 		<td>
-			<a href='#'>+</a>
+			<a href='/add/rooms/{{room[0]}}'>+</a>
 		</td>
 	</tr>
   {% endfor %}
@@ -50,9 +50,9 @@
   <tbody>
   {% for instructor in instructors %}
 	<tr>
-		<td>{{ instructor }}</td>
+		<td>{{ instructor[1] }}</td>
 		<td>
-			<a href='#'>+</a>
+			<a href='/add/instructors/{{instructor[0]}}'>+</a>
 		</td>
 	</tr>
   {% endfor %}
@@ -69,9 +69,9 @@
   <tbody>
   {% for course in courses %}
 	<tr>
-		<td>{{ course }}</td>
+		<td>{{ course[1] }}</td>
 		<td>
-			<a href='#'>+</a>
+			<a href='/add/courses/{{course[0]}}'>+</a>
 		</td>
 	</tr>
   {% endfor %}
@@ -88,9 +88,9 @@
   <tbody>
   {% for timeslot in timeslots %}
 	<tr>
-		<td>{{ timeslot }}</td>
+		<td>{{ timeslot[1] }}</td>
 		<td>
-			<a href='#'>+</a>
+			<a href='/add/timeslots/{{timeslot[0]}}'>+</a>
 		</td>
 	</tr>
   {% endfor %}
