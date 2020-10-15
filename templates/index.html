@@ -14,10 +14,10 @@
  
  <div class="container">
 	<div class="row align-items-center">
-		<div class="col"><input type="text" placeholder="Room" value="{{room_text}}"></div>
-		<div class="col"><input type="text" placeholder="Instructor" value="{{instruct_text}}"></div>
-		<div class="col"><input type="text" placeholder="Course" value="{{course_text}}"></div>
-		<div class="col"><input type="text" placeholder="Time Slot" value="{{timeslot_text}}"></div>
+		<div class="col"><input type="text" id="room_input" placeholder="Room" value="{{room_text}}"></div>
+		<div class="col"><input type="text" id="instruct_input" placeholder="Instructor" value="{{instruct_text}}"></div>
+		<div class="col"><input type="text" id="course_input"  placeholder="Course" value="{{course_text}}"></div>
+		<div class="col"><input type="text" id="timeslot_input"  placeholder="Time Slot" value="{{timeslot_text}}"></div>
 		<div class="col"><input type="button" value="Save"></div>
 	</div>
 	  
@@ -30,9 +30,10 @@
   <tbody>
   {% for room in rooms %}
 	<tr>
+		<input type="hidden" id="room_{{room[0]}}_input" value="{{ room[1] }}">
 		<td>{{ room[1] }}</td>
 		<td>
-			<a href='/add/rooms/{{room[0]}}'>+</a>
+			<a href="#" id="room_{{room[0]}}">+</a>
 		</td>
 	</tr>
   {% endfor %}
@@ -50,9 +51,10 @@
   <tbody>
   {% for instructor in instructors %}
 	<tr>
+		<input type="hidden" id="instruct_{{instructor[0]}}_input" value="{{ instructor[1] }}">
 		<td>{{ instructor[1] }}</td>
 		<td>
-			<a href='/add/instructors/{{instructor[0]}}'>+</a>
+			<a href="#" id="instruct_{{instructor[0]}}">+</a>
 		</td>
 	</tr>
   {% endfor %}
@@ -108,4 +110,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
+  
+  <script>
+  $(document).ready(function(){
+	 
+	  $('[id^=room_]').click(function(){
+		  var id = $(this).attr('id');
+		  var inputid = id+"_input";
+		  $('#room_input').val( $("#" + inputid).val() );
+	    });
+	  $('[id^=instruct_]').click(function(){
+		  var id = $(this).attr('id');
+		  var inputid = id+"_input";
+		  $('#instruct_input').val( $("#" + inputid).val() );
+	    });
+	  /*
+	  $('[id^=room_]').click(function(){
+		  var id = $(this).attr('id');
+		  var inputid = id+"_input";
+		  $('#room_input').val( $("#" + inputid).val() );
+	    });
+	  $('[id^=room_]').click(function(){
+		  var id = $(this).attr('id');
+		  var inputid = id+"_input";
+		  $('#room_input').val( $("#" + inputid).val() );
+	    });
+	  */
+  });
+  </script>
+  
 </html>
