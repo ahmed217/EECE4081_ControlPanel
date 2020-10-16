@@ -13,14 +13,30 @@
   <body>
  
  <div class="container">
+ 
+ <form method="post" action="/create">
+
 	<div class="row align-items-center">
-		<div class="col"><input type="text" id="room_input" placeholder="Room" value="{{room_text}}"></div>
-		<div class="col"><input type="text" id="instruct_input" placeholder="Instructor" value="{{instruct_text}}"></div>
-		<div class="col"><input type="text" id="course_input"  placeholder="Course" value="{{course_text}}"></div>
-		<div class="col"><input type="text" id="timeslot_input"  placeholder="Time Slot" value="{{timeslot_text}}"></div>
-		<div class="col"><input type="button" value="Save"></div>
+		<div class="col">
+			<input type="hidden" id="room_id" name="room_id" value="">
+			<input type="text" id="room_name" name="room_name" placeholder="Room" value="" readonly>
+		</div>
+		<div class="col">
+			<input type="hidden" id="instruct_id" name="instruct_id" value="">
+			<input type="text" id="instruct_name" name="instruct_name" placeholder="Instructor" value="" readonly>
+		</div>
+		<div class="col">
+			<input type="hidden" id="course_id" name="course_id" value="">
+			<input type="text" id="course_name" name="course_name"  placeholder="Course" value="" readonly>
+		</div>
+		<div class="col">
+			<input type="hidden" id="timeslot_id" name="timeslot_id" value="">
+			<input type="text" id="timeslot_name" name="timeslot_name"  placeholder="Time Slot" value="" readonly>
+		</div>
+		<div class="col"><input type="submit" value="Save"></div>
 	</div>
-	  
+</form>
+
 <div class="row">
 <div class="col-sm-3">
   <table class="table table-striped">
@@ -71,9 +87,10 @@
   <tbody>
   {% for course in courses %}
 	<tr>
+		<input type="hidden" id="course_{{course[0]}}_input" value="{{ course[1] }}">
 		<td>{{ course[1] }}</td>
 		<td>
-			<a href='/add/courses/{{course[0]}}'>+</a>
+			<a href="#" id="course_{{course[0]}}">+</a>
 		</td>
 	</tr>
   {% endfor %}
@@ -90,9 +107,10 @@
   <tbody>
   {% for timeslot in timeslots %}
 	<tr>
+		<input type="hidden" id="timeslot_{{timeslot[0]}}_input" value="{{ timeslot[1] }}">
 		<td>{{ timeslot[1] }}</td>
 		<td>
-			<a href='/add/timeslots/{{timeslot[0]}}'>+</a>
+			<a href="#" id="timeslot_{{timeslot[0]}}">+</a>
 		</td>
 	</tr>
   {% endfor %}
@@ -100,6 +118,37 @@
 	</table>
 </div>
 </div>
+
+  <table class="table table-striped">
+  	<thead>
+    	<tr>
+      		<th scope="col">Schedule ID </th>
+      		<th scope="col">Room </th>
+      		<th scope="col">Instructor </th>
+      		<th scope="col">Course</th>
+      		<th scope="col">Time </th>
+    	</tr>
+  </thead>
+  <tbody>
+  {% for schedule in schedules %}
+	<tr>
+		<td>{{ schedule.id }}</td>
+		<td>{{ schedule.room_name }}</td>
+		<td>{{ schedule.instruct_name }}</td>
+		<td>{{ schedule.course_name }}</td>
+		<td>{{ schedule.timeslot_name }}</td>
+		
+		<td>
+			<a href="#">Edit</a>|
+			<a href="#">Delete</a>
+		</td>
+	</tr>
+  {% endfor %}
+  </tbody>
+	</table>
+
+
+
 </div>
 
 
@@ -116,26 +165,35 @@
 	 
 	  $('[id^=room_]').click(function(){
 		  var id = $(this).attr('id');
+		  var idnum = id.split("_")[1];
 		  var inputid = id+"_input";
-		  $('#room_input').val( $("#" + inputid).val() );
+		  $('#room_id').val(idnum);
+		  $('#room_name').val( $("#" + inputid).val() );
+		  
 	    });
 	  $('[id^=instruct_]').click(function(){
 		  var id = $(this).attr('id');
+		  var idnum = id.split("_")[1];
 		  var inputid = id+"_input";
-		  $('#instruct_input').val( $("#" + inputid).val() );
+		  $('#instruct_id').val(idnum);
+		  $('#instruct_name').val( $("#" + inputid).val() );
 	    });
-	  /*
-	  $('[id^=room_]').click(function(){
+	  
+	  $('[id^=course_]').click(function(){
 		  var id = $(this).attr('id');
+		  var idnum = id.split("_")[1];
 		  var inputid = id+"_input";
-		  $('#room_input').val( $("#" + inputid).val() );
+		  $('#course_id').val(idnum);
+		  $('#course_name').val( $("#" + inputid).val() );
 	    });
-	  $('[id^=room_]').click(function(){
+	  $('[id^=timeslot_]').click(function(){
 		  var id = $(this).attr('id');
+		  var idnum = id.split("_")[1];
 		  var inputid = id+"_input";
-		  $('#room_input').val( $("#" + inputid).val() );
+		  $('#timeslot_id').val(idnum);
+		  $('#timeslot_name').val( $("#" + inputid).val() );
 	    });
-	  */
+	  
   });
   </script>
   
