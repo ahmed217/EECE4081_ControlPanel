@@ -25,6 +25,8 @@ db = SQLAlchemy(app)
 # >>> exit()
 ###################################################
 
+
+
 @app.route('/')
 def index():
     #brokenlaptops = BrokenLaptop.query.all()
