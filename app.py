@@ -96,8 +96,15 @@ def create():
          
         db.session.add(schedule)
         db.session.commit()
-        return redirect("/")   
+    return redirect("/")   
     
+@app.route('/delete/<schedule_id>')
+def delete(schedule_id):
+    schedule = Schedule.query.get(schedule_id)
+    db.session.delete(schedule)
+    db.session.commit()
+    return redirect("/")   
+
 @app.route('/init_db')
 def init_db():
     db.create_all()
